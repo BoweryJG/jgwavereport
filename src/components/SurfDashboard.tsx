@@ -24,6 +24,7 @@ import {
   DarkMode
 } from '@mui/icons-material';
 import { SurfSpotCard } from './SurfSpotCard';
+import { SurfSpotSkeleton } from './SurfSpotSkeleton';
 import { WaveChart } from './WaveChart';
 import { WindRoseChart } from './WindRoseChart';
 import { TideChart } from './TideChart';
@@ -54,7 +55,12 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export const SurfDashboard: React.FC = () => {
+interface SurfDashboardProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+export const SurfDashboard: React.FC<SurfDashboardProps> = ({ isDarkMode, toggleDarkMode }) => {
   const theme = useTheme();
   const [selectedTab, setSelectedTab] = useState(0);
   const [selectedLocation, setSelectedLocation] = useState<SurfLocation>(SURF_LOCATIONS[0]);
@@ -63,7 +69,6 @@ export const SurfDashboard: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [webcamOpen, setWebcamOpen] = useState(false);
   const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const surfDataService = new SurfDataService();
 
@@ -100,22 +105,55 @@ export const SurfDashboard: React.FC = () => {
 
   return (
     <Box sx={{ flexGrow: 1, minHeight: '100vh', bgcolor: 'background.default' }}>
-      <AppBar position="static" elevation={0}>
+      <AppBar 
+        position="fixed" 
+        elevation={0}
+        sx={{
+          background: theme.palette.mode === 'dark' 
+            ? 'rgba(17, 25, 40, 0.8)' 
+            : 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid',
+          borderColor: theme.palette.mode === 'dark'
+            ? 'rgba(255, 255, 255, 0.1)'
+            : 'rgba(0, 0, 0, 0.1)',
+        }}
+      >
         <Toolbar>
-          <Waves sx={{ mr: 2 }} />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Waves sx={{ mr: 2, fontSize: 32 }} />
+          <Typography 
+            variant="h5" 
+            component="div" 
+            sx={{ 
+              flexGrow: 1,
+              background: theme.palette.gradient.surf,
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              fontWeight: 800,
+            }}
+          >
             JG Wave Report
           </Typography>
-          <Typography variant="body2" sx={{ mr: 2 }}>
+          <Typography variant="body2" sx={{ mr: 2, opacity: 0.8 }}>
             Last updated: {lastUpdate.toLocaleTimeString()}
           </Typography>
-          <IconButton color="inherit" onClick={() => setIsDarkMode(!isDarkMode)}>
+          <IconButton 
+            color="inherit" 
+            onClick={toggleDarkMode}
+            sx={{
+              transition: 'transform 0.3s ease',
+              '&:hover': {
+                transform: 'rotate(180deg)',
+              },
+            }}
+          >
             {isDarkMode ? <WbSunny /> : <DarkMode />}
           </IconButton>
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="xl" sx={{ mt: 4 }}>
+      <Container maxWidth="xl" sx={{ pt: 12, pb: 4 }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
           <Tabs value={selectedTab} onChange={handleTabChange} aria-label="surf locations">
             {SURF_LOCATIONS.map((location, index) => (
@@ -130,9 +168,30 @@ export const SurfDashboard: React.FC = () => {
         </Box>
 
         {loading && (
-          <Box sx={{ display: 'flex', justifyContent: 'center', py: 8 }}>
-            <CircularProgress size={60} />
-          </Box>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={4}>
+              <SurfSpotSkeleton />
+            </Grid>
+            <Grid item xs={12} md={8}>
+              <Grid container spacing={3}>
+                <Grid item xs={12}>
+                  <Paper sx={{ p: 3, height: 300 }}>
+                    <CircularProgress />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Paper sx={{ p: 3, height: 250 }}>
+                    <CircularProgress />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                  <Paper sx={{ p: 3, height: 250 }}>
+                    <CircularProgress />
+                  </Paper>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         )}
 
         {error && (
