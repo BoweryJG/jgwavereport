@@ -1,46 +1,109 @@
-# Getting Started with Create React App
+# JG Wave Report 🏄‍♂️
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A stunning real-time surf forecasting tool for the northeastern United States, featuring live webcam feeds, NOAA data integration, and beautiful visualizations for surf conditions.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Real-time Surf Data**: Live wave height, swell period, and direction
+- **Live Webcam Feeds**: Direct feeds from Smith Point, Long Beach, Montauk, and Brick Beach, NJ
+- **NOAA Integration**: Official water temperature and tide predictions
+- **7-Day Forecast**: Detailed wave and weather forecasts with stunning visualizations
+- **Historical Analysis**: Past 7 days of surf conditions with trend analysis
+- **Wind Rose Charts**: Visual representation of wind conditions
+- **Tide Charts**: Interactive tide predictions with smooth curves
+- **Mobile Responsive**: Works perfectly on all devices
 
-### `npm start`
+## Locations Covered
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. **Smith Point** - Long Island, NY
+2. **Long Beach** - Long Island, NY
+3. **Montauk Point** - Long Island, NY
+4. **Brick Beach** - New Jersey
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Technology Stack
 
-### `npm test`
+- React with TypeScript
+- Material-UI for stunning UI components
+- Recharts for data visualization
+- NOAA CO-OPS API for official marine data
+- Open-Meteo Marine API for wave forecasts
+- Live webcam integration
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Getting Started
 
-### `npm run build`
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/jgwavereport.git
+cd jgwavereport
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies:
+```bash
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Copy environment variables:
+```bash
+cp .env.example .env.local
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. Start the development server:
+```bash
+npm start
+```
 
-### `npm run eject`
+## Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+The app is configured for easy deployment to Netlify:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Connect your GitHub repository to Netlify
+2. Netlify will automatically detect the build settings from `netlify.toml`
+3. Deploy!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## API Usage
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This app uses only free, no-authentication-required APIs:
 
-## Learn More
+- **NOAA Tides & Currents**: Official US government marine data
+- **National Weather Service API**: Weather and wind forecasts
+- **Open-Meteo Marine API**: Wave height and swell data
+- **Live Webcam Feeds**: Direct iframe integration from surf cam providers
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Features in Detail
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Wave Forecasting
+- Minimum, maximum, and average wave heights
+- Swell period and direction
+- Wave quality ratings
+- 7-day detailed forecasts
+
+### Wind Analysis
+- Real-time wind speed and direction
+- Wind rose visualization
+- Gust predictions
+- Optimal wind conditions for each spot
+
+### Tide Predictions
+- High and low tide times
+- Smooth tide curves
+- Current tide position indicator
+- Best tide recommendations for each spot
+
+### Water Conditions
+- Real-time water temperature
+- Clarity estimates
+- Safety alerts for extreme conditions
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+MIT License
+
+## Acknowledgments
+
+- NOAA for providing free marine data
+- Open-Meteo for their excellent weather API
+- The surf cam providers for their live feeds
